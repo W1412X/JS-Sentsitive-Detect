@@ -1,0 +1,19 @@
+{
+  "name": "wx-sensitive-detection",
+  "version": "1.0.0",
+  "description": "A tool to help detect sensitive Word",
+  "main": "sensitive.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/W1412X/JS-Sentsitive-Detect.git"
+  },
+  "author": "w1412x",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/W1412X/JS-Sentsitive-Detect/issues"
+  },
+  "homepage": "https://github.com/W1412X/JS-Sentsitive-Detect#readme"
+}
