@@ -1,66 +1,73 @@
 # A Sensitive Detect tool  
 ## Installation  
 ```bash
-npm install wx-sensitive-detection
+npm i wx-sensitive-detection
 ```
 ## Use  
 ```vue
 <template>
-    <v-text-field
-      v-bind="textareaProps"
-      v-model="internalValue"
-      @compositionend="handleCompositionEnd"
-    />
+  <v-textarea v-bind="textareaProps" v-model="internalValue" @compositionend="handleCompositionEnd"
+    @compositionstart="handleCompositionStart" @input="handleInput" />
 </template>
-  
-  <script>
-  import { replaceAll } from './index.js';
-  import { ref, computed, watch, defineComponent } from 'vue';
-  
-  export default defineComponent({
-    name: 'SensitiveTextarea',
-    props: {
-      modelValue: {
-        type: [String, Number],
-        default: ''
-      },
+
+<script>
+import { replaceAll } from './index.js';
+import { ref, computed, watch, defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'SensitiveTextarea',
+  props: {
+    modelValue: {
+      type: [String, Number],
+      default: ''
     },
-    setup(props, { emit }) {
-      const internalValue = ref(props.modelValue);
-  
-      // 计算属性
-      const textareaProps = computed(() => {
-        const { modelValue, style, ...restProps } = props;
-        console.log(modelValue,style)
-        return restProps;
-      });
-  
-      watch(() => props.modelValue, (newValue) => {
-        internalValue.value = newValue;
-      });
-  
-      function handleCompositionEnd() {
+  },
+  setup(props) {
+    const internalValue = ref(props.modelValue);
+
+    // 计算属性
+    const textareaProps = computed(() => {
+      const { modelValue, style, ...restProps } = props;
+      console.log(modelValue, style)
+      return restProps;
+    });
+
+    watch(() => props.modelValue, (newValue) => {
+      internalValue.value = newValue;
+    });
+
+    return {
+      internalValue,
+      textareaProps,
+    };
+  },
+  data() {
+    return {
+      ifTyping: false,
+    }
+  },
+  methods: {
+    handleCompositionStart() {
+      console.log('start type')
+      this.ifTyping = true
+    },
+    handleCompositionEnd() {
+      this.ifTyping = false
+    },
+    handleInput() {
+      if (this.ifTyping) {//如果正在打字，则不做处理
+        console.log('tying')
+      } else {//没有打字，检测
         setTimeout(() => {
-          const result = replaceAll(internalValue.value);
+          const result = replaceAll(this.internalValue);
           for (const word of result) {
             let replaceStr = '*'.repeat(word.length);
-            internalValue.value = internalValue.value.replace(word, replaceStr);
+            this.internalValue = this.internalValue.replace(word, replaceStr);
           }
-          emit('update:modelValue', internalValue.value);
-        }, 100);
+        }, 100)
       }
-  
-      return {
-        internalValue,
-        textareaProps,
-        handleCompositionEnd
-      };
     }
-  });
-  </script>
-  
-  <style scoped>
-  /* 可以在这里添加一些样式 */
-  </style>
-  
+  }
+});
+</script>
 ```

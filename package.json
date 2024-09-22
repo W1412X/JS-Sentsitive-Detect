@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/W1412X/JS-Sentsitive-Detect/issues"
   },
-  "homepage": "https://github.com/W1412X/JS-Sentsitive-Detect#readme"
+  "homepage": "https://github.com/W1412X/JS-Sentsitive-Detect#readme",
+  "dependencies": {
+    "wx-sensitive-detection": "^1.0.0"
+  }
 }
