@@ -1,5 +1,8 @@
 
 const wordList = [
+    "屌",
+    "屄",
+    "肏",
     "自由门*",
     "雞巴",
     "hdjfskh.net",
@@ -41127,7 +41130,7 @@ var nodeNow = root
 var return_word = ''
 var count=0
 export const detect = (text) => {//
-    console.log(text)
+    console.log('||'+text)
     nodeNow = root
     for (let ind = 0; ind < text.length; ind++) {
         const char = text[ind]
@@ -41163,7 +41166,7 @@ export const replaceAll = (text) => {
         if (!nodeNow.children[char]) {
             // 如果当前的字符不在树中，继续
             if(count!=0){
-                ind-=(count);
+                ind-=(count-1);
                 count=0;
             }  
             count=0
