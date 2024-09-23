@@ -11,7 +11,7 @@ npm i wx-sensitive-detection
 </template>
 
 <script>
-import { replaceAll } from '@/utils/sensitive';
+import { replaceAll } from './index.js';
 import { ref, computed, watch, defineComponent } from 'vue';
 
 export default defineComponent({
